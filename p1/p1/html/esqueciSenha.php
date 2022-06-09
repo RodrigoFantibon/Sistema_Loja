@@ -15,7 +15,7 @@
 <div class="container">
 	<div class="row" >
 		<div class="col-md-4 col-md-offset-4">
-    <form method="POST" action="" class="form"> 
+    <form method="POST" action="novaSenha.php" class="form"> 
       <div id="senhabox" class="col-md-12 align-content-center">
             <div class="panel panel-default" >
               <div class="panel-body">
@@ -75,9 +75,7 @@ $cliente = new cliente();
 
 if(isset($_POST['btnVerificaEmail'])){
     if($cliente->queryVerificaEmail($_POST) == 'ok' ){
-        $cliente->enviarEmail($_POST);
-
-      // header("location: ../html/novaSenha.php");
+      header("location: ../html/novaSenha.php");
         
     }
     else{

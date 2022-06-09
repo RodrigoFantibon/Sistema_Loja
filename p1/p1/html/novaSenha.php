@@ -27,15 +27,15 @@
                       <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                          <input id="txtEmail" name="email" placeholder="Digite sua nova senha" class="form-control"  type="email">
+                          <input type="password" name="senha" placeholder="Digite sua nova senha" class="form-control">
                         </div>
                       </div>
                       <div class="form-group">
                         <br>
-                        <button type="button"  name="submit" class="btn btn-secondary btn-lg">Redefinir</button>   <!-- onclick="validar();" -->
+                        <button type="submit"  name="btnRedefinir" class="btn btn-secondary btn-lg">Redefinir</button>   <!-- onclick="validar();" -->
                       </div>
                       </div>
-                      <input type="hidden" class="hide" name="token" id="token" value=""> 
+                  
                     </form>
                    </div>
                   </div>
@@ -48,3 +48,24 @@
 </div>
 </body>
 </html>
+
+<?php
+require_once '../conexao/cadastroCRUD.php';
+require_once '../conexao/funcoes.php';
+require_once '../conexao/conexao.php';
+$func = new Funcoes();
+$cliente = new cliente();
+
+
+if(isset($_POST['btnRedefinir'])){
+    if($cliente->RedefinirSenha($_POST) == 'ok' ){
+      echo '<script type="text/javascript">alert("Senha alterada com sucesso")</script>';
+      header("location: ../html/login.php");
+        
+    }
+    else{
+   
+        echo '<script type="text/javascript">alert("Erro ao alterar senha")</script>';
+    }
+}
+?>

@@ -20,10 +20,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-white">Senha:</label><br>
-                                <input type="password" name="password" id="txtSenha" class="form-control" placeholder="digite sua senha" required>
+                                <input type="password" name="senha" id="txtSenha" class="form-control" placeholder="digite sua senha" required>
                             </div>
                             <div class="form-group">
-                                <button type="button" onclick="validar();" name="submit" class="btn btn-secondary btn-lg">Entrar</button>
+                                <button type="submit" onclick="validar();" name="btnLogin" class="btn btn-secondary btn-lg">Entrar</button>
                             </div>
                                 <div id="register-link" class="text-right"></br>
                                     <a href="../html/cadastro.html" class="text-info">Cadastre-se</a><br>
@@ -54,10 +54,31 @@
             return false;
         }
      
-        alert("tudo certo!!! =D");
+        // alert("tudo certo!!! =D");
     }    
-
-
   
 </script>
+
+
+<?php
+require_once '../conexao/cadastroCRUD.php';
+require_once '../conexao/funcoes.php';
+require_once '../conexao/conexao.php';
+$func = new Funcoes();
+$cliente = new cliente();
+
+
+
+if(isset($_POST['btnLogin'])){
+    if($cliente->login($_POST)){
+        echo '<script type="text/javascript">alert("login realizado com sucesso")</script>';
+      header("location: ../html/vitrine.html");
+        
+    }
+    else{
+   
+        echo '<script type="text/javascript">alert("email ou senha errado")</script>';
+    }
+}
+?>
     
