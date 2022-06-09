@@ -1,0 +1,13 @@
+CREATE DATABASE test3;
+Create table cadastro
+(
+    id int NOT NULL AUTO_INCREMENT,
+    nome text(40),
+    sobrenome text (50),
+    email text(50),
+    senha text(40),
+    telefone text(40),
+    endereco text(50),
+
+PRIMARY KEY (id)
+)
