@@ -2,6 +2,13 @@
 // include 'conexao.php';
 require_once 'conexao.php';
 require_once 'funcoes.php';
+require_once '../phpmailer/includes/SMTP.php';
+require_once '../phpmailer/includes/PHPMailer.php';
+require_once '../phpmailer/includes/Exception.php';
+
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\PHPMailer;
 
 // $conexao = new conexaoBD();
 
@@ -140,17 +147,44 @@ require_once 'funcoes.php';
             }
 
 
-            function enviarEmail($dado){
-               $envEmail = $this->email = $dado['email'];
-                $subject = 'test de envio';
-                $message = 'olá, apenas um teste';
-                $headers = 'From: rs644521@gmail.com' . "\r\n" . 'Reply-To: rodrigo.fantibon@hotmail.com';
+            // function enviarEmail($dado){
+            //    $envEmail = $this->email = $dado['email'];
+            //     $subject = 'test de envio';
+            //     $message = 'olá, apenas um teste';
+            //     $headers = 'From: rs644521@gmail.com' . "\r\n" . 'Reply-To: rodrigo.fantibon@hotmail.com';
 
-                mail($envEmail, $subject, $message, $headers);
+            //     mail($envEmail, $subject, $message, $headers);
 
-                print "enviado";
+            //     print "enviado";
+            
+            // }
+
+             function enviarEmail($dado){
+               $emailRec = $this->email = $dado['email'];
+                $mail = new PHPMailer();
+                $mail->isSMTP();
+                $mail->Host="smtp.gmail.com";
+                $mail->SMTPAuth="true";
+                $mail->SMTPSecure="tls";
+                $mail->Port="578";
+                $mail->username=$emailRec;
+                $mail->Password="Test123456789*";
+                $mail->Subject = "Test Email Using PHPMAILER";
+                $mail->setFrom($emailRec);
+                $mail->Body="This is a test";
+                $mail->addAddress($emailRec);
+                var_dump($mail);
+                if($mail->Send()){
+                    echo "Email Enviado";
+                }
+                else{
+                    echo "erro";
+                }
+                $mail->smtpClose();
             
             }
+
+
         }
     
 
