@@ -26,7 +26,7 @@
                                 <button type="submit" onclick="validar();" name="btnLogin" class="btn btn-secondary btn-lg">Entrar</button>
                             </div>
                                 <div id="register-link" class="text-right"></br>
-                                    <a href="../html/cadastro.html" class="text-info">Cadastre-se</a><br>
+                                    <a href="../html/cadastro.php" class="text-info">Cadastre-se</a><br>
                                     <a href="../html/esqueciSenha.php" class="text-info">Esqueceu a senha?</a>
                             </div>
                         </form>
@@ -68,9 +68,9 @@ $func = new Funcoes();
 $cliente = new cliente();
 
 
-
 if(isset($_POST['btnLogin'])){
     if($cliente->login($_POST)){
+        
         echo '<script type="text/javascript">alert("login realizado com sucesso")</script>';
       header("location: ../html/vitrine.html");
         

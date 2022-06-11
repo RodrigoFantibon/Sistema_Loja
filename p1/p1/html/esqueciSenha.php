@@ -15,7 +15,7 @@
 <div class="container">
 	<div class="row" >
 		<div class="col-md-4 col-md-offset-4">
-    <form method="POST" action="novaSenha.php" class="form"> 
+    <form method="POST" action="" class="form"> 
       <div id="senhabox" class="col-md-12 align-content-center">
             <div class="panel panel-default" >
               <div class="panel-body">
@@ -67,22 +67,32 @@
 
 
   <?php
+  
 require_once '../conexao/cadastroCRUD.php';
 require_once '../conexao/funcoes.php';
 require_once '../conexao/conexao.php';
-$func = new Funcoes();
-$cliente = new cliente();
+ $func = new Funcoes();
+ $cliente = new cliente();
+
+
+
+
+
+
 
 if(isset($_POST['btnVerificaEmail'])){
-    if($cliente->queryVerificaEmail($_POST) == 'ok' ){
-      header("location: ../html/novaSenha.php");
-        
-    }
-    else{
-   
-        echo '<script type="text/javascript">alert("email nao encontrado")</script>';
-    }
+  $email = $cliente->queryVerificaEmail($_POST);
+  if($email) {
+    header("location: ../html/novaSenha.php?email=".$email['email']);
+  }
+
+else{
+
+  echo '<script type="text/javascript">alert("email nao encontrado")</script>';
 }
+}  
+      
+     
 ?>
 
 

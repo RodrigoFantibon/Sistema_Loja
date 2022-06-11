@@ -8,7 +8,7 @@ $cliente = new cliente();
 if(isset($_POST['submit'])){
     if($cliente->queryInsert($_POST) == 'ok' ){
         echo '<script type="text/javascript">alert("cadastro realizado com sucesso!!")</script>';
-        header("location: ../html/login.html");
+        header("location: ../html/login.php");
     }
     else{
         echo '<script type="text/javascript">alert("erro em cadastrar")</script>';

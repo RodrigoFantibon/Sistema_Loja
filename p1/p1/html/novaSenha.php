@@ -49,23 +49,26 @@
 </body>
 </html>
 
+
 <?php
 require_once '../conexao/cadastroCRUD.php';
 require_once '../conexao/funcoes.php';
 require_once '../conexao/conexao.php';
+
 $func = new Funcoes();
 $cliente = new cliente();
 
-
 if(isset($_POST['btnRedefinir'])){
-    if($cliente->RedefinirSenha($_POST) == 'ok' ){
+    $_POST['email'] = $_GET['email'];
+ if($cliente->RedefinirSenha($_POST) == 'ok'){
       echo '<script type="text/javascript">alert("Senha alterada com sucesso")</script>';
       header("location: ../html/login.php");
-        
     }
+  
     else{
    
         echo '<script type="text/javascript">alert("Erro ao alterar senha")</script>';
     }
 }
+
 ?>
