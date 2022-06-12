@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,13 +32,37 @@
             <i class="fas fa-search"></i>
           </button>
         </form>
+        <form action="" method="post">
         <div class='icones'>
-          <a href="../html/login.html"><img src="../img/midnaicon.png" id="logini" /></a>
+        <?php 
+          session_start();
+          if(isset($_SESSION['usuario']['nome']))
+          {
+            echo $_SESSION['usuario']['nome'];
+             ?>
+        <button type="submit" name="btnSair" class="btn btn-danger btnSair">Sair</button>
+        <?php 
+           } 
+        ?>
+<?php
+
+if(isset($_POST['btnSair'])){
+  session_destroy();
+  header("location: ../html/vitrine.php");
+ }
+
+?>
+
+        
+          <a href="../html/login.php"><img src="../img/midnaicon.png" id="logini" /></a>
           <a href="../html/carrinho.html"><img src="../img/bag.png" id="carrinho" /></a>
         </div>
       </div>
     </nav>
   </div>
+</form>
+
+
 
   <div class="menu">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgb(0,63,92);
@@ -383,4 +411,3 @@
 </body>
 
 </html>
-

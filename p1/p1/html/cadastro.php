@@ -106,7 +106,7 @@ if(isset($_POST['submit'])){
                             })</script> -->
                             <!-- validar(); -->
                         </div>
-                        <p>Já tem cadastro? Faça login <a href="../html/login.html" style="color:dodgerblue">aqui</a>.</p>
+                        <p>Já tem cadastro? Faça login <a href="../html/login.php" style="color:dodgerblue">aqui</a>.</p>
                     </form>
                 </div>
             </div>
@@ -151,6 +151,6 @@ if(isset($_POST['submit'])){
         
       
        
-        // window.location = '../html/login.html';  
+        // window.location = '../html/login.php';  
     }    
 </script>

@@ -179,14 +179,13 @@ class cliente
 
     function login($dados)
     {
-
         try {
             $this->email = $dados['email'];
-            $this->senha = $dados['senha'];
-            $cst = $this->con->conectar()->prepare("SELECT email, senha FROM cadastro WHERE email = (:email) AND senha = (:senha);");
+            $this->senha = sha1($dados['senha']);
+            $cst = $this->con->conectar()->prepare("SELECT email, senha, nome FROM cadastro WHERE email = (:email) AND senha = (:senha);");
             $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
             $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
-
+           
             if ($cst->execute()) {
                 if ($cst->rowCount() > 0)
                     return $cst->fetch(PDO::FETCH_ASSOC);

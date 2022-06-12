@@ -32,7 +32,7 @@
                       </div>
                       <div class="form-group">
                         <br>
-                        <button type="submit"  name="btnRedefinir" class="btn btn-secondary btn-lg">Redefinir</button>   <!-- onclick="validar();" -->
+                        <button type="submit"  name="btnRedefinir" class="btn btn-secondary btn-lg" onclick="validar();">Redefinir</button>   <!-- onclick="validar();" -->
                       </div>
                       </div>
                   
@@ -48,7 +48,9 @@
 </div>
 </body>
 </html>
-
+   
+  
+</script>
 
 <?php
 require_once '../conexao/cadastroCRUD.php';
@@ -58,17 +60,27 @@ require_once '../conexao/conexao.php';
 $func = new Funcoes();
 $cliente = new cliente();
 
-if(isset($_POST['btnRedefinir'])){
-    $_POST['email'] = $_GET['email'];
- if($cliente->RedefinirSenha($_POST) == 'ok'){
-      echo '<script type="text/javascript">alert("Senha alterada com sucesso")</script>';
-      header("location: ../html/login.php");
-    }
-  
-    else{
-   
-        echo '<script type="text/javascript">alert("Erro ao alterar senha")</script>';
-    }
+
+
+function isValidPassword($senha) {
+  $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
+  return preg_match($pattern, $senha) ? true : false;
 }
+
+
+      if(isset($_POST['btnRedefinir'])){
+        if(isValidPassword($_POST['senha'])){
+          $_POST['email'] = $_GET['email'];
+            if($cliente->RedefinirSenha($_POST) == 'ok'){
+          echo '<script type="text/javascript">alert("Senha alterada com sucesso")</script>';
+          header("location: ../html/login.php");
+    }
+    }
+    else{
+      echo '<script type="text/javascript">alert("certifique-se que a senha atenda aos padroes, letra maiuscula minuscula e numeros!!")</script>';
+  }
+  }
+   
+
 
 ?>

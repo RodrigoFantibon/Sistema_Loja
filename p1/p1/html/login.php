@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +25,7 @@
                                 <input type="password" name="senha" id="txtSenha" class="form-control" placeholder="digite sua senha" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" onclick="validar();" name="btnLogin" class="btn btn-secondary btn-lg">Entrar</button>
+                                <button type="submit" onclick="validar()" name="btnLogin" class="btn btn-secondary btn-lg">Entrar</button>
                             </div>
                                 <div id="register-link" class="text-right"></br>
                                     <a href="../html/cadastro.php" class="text-info">Cadastre-se</a><br>
@@ -61,6 +63,7 @@
 
 
 <?php
+
 require_once '../conexao/cadastroCRUD.php';
 require_once '../conexao/funcoes.php';
 require_once '../conexao/conexao.php';
@@ -69,10 +72,13 @@ $cliente = new cliente();
 
 
 if(isset($_POST['btnLogin'])){
-    if($cliente->login($_POST)){
-        
+    $sesao = $cliente->login($_POST);
+    if($sesao){
+       session_start();
+        $_SESSION['usuario']=$sesao;
+        var_dump($_SESSION);
         echo '<script type="text/javascript">alert("login realizado com sucesso")</script>';
-      header("location: ../html/vitrine.html");
+      header("location: ../html/vitrine.php");
         
     }
     else{
