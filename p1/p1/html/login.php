@@ -77,13 +77,13 @@ if(isset($_POST['btnLogin'])){
        session_start();
         $_SESSION['usuario']=$sesao;
         var_dump($_SESSION);
-        echo '<script type="text/javascript">alert("login realizado com sucesso")</script>';
+        echo '<script type="text/javascript">alert("Login realizado com sucesso")</script>';
       header("location: ../html/vitrine.php");
         
     }
     else{
    
-        echo '<script type="text/javascript">alert("email ou senha errado")</script>';
+        echo '<script type="text/javascript">alert("E-mail ou senha incorreto")</script>';
     }
 }
 ?>

@@ -1,8 +1,16 @@
 <?php
 require_once '../conexao/jogos.php';
 $Jogos= new jogos();
-$jogos= $Jogos->querySelect();
+if(isset($_GET['q'])){
+  $filtro = $_GET['q'];
+  
+  $jogos= $Jogos->querySelectBusca($filtro);
+}
+else{
+  $jogos= $Jogos->querySelect();
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -24,14 +32,14 @@ $jogos= $Jogos->querySelect();
   <link rel="stylesheet" href="../css/vitrine.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
   <link rel="icon" href="../img/favicon.ico">
-  <title>Vitrine</title>
+  <title>Busca</title>
 </head>
 
 <body>
   <div class="topo">
     <nav class="navbar navbar-light" style="background-color: white;">
       <div class="container-fluid" id="topoConteainer">
-        <a href="#"><img src="../img/maskzeldaicon.png" id="logo" /></a>
+        <a href="../html/vitrine.php"><img src="../img/maskzeldaicon.png" id="logo" /></a>
         <form class="d-flex" method="GET" action="">
           <input name="q" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"
             style="margin: 0 auto;">
@@ -144,39 +152,41 @@ if(isset($_POST['btnSair'])){
 
       <!-- CARD 1 -->
       <?php
-       foreach ($jogos as $jogo) {
-        echo"<div class='col-md-4'>
-          <div class='card mt-3'>
-            <div class='product-1 align-items-center p-2 text-center'>
-              <img src='{$jogo['url']}' alt='' class='rounded' width='160' height='250'>
-              <h5>{$jogo['name']}</h5>
-
-              <!-- informações do card -->
-
-              <div class='mt-3 info'>
-                <span class='text1 d-block'>{$jogo['categoria']}</span>
-              </div>
-
-              <div class='cost mt-3 text-drak'>
-                <span>R$ {$jogo['price']}</span>
-                <div class='star mt-3 align-items-center'>
-                  <i class='fa fa-star checked' aria-hidden='true'></i>
-                  <i class='fa fa-star checked' aria-hidden='true'></i>
-                  <i class='fa fa-star checked' aria-hidden='true'></i>
-                  <i class='fa fa-star checked' aria-hidden='true'></i>
-                  <i class='fa fa-star' aria-hidden='true'></i>
+         foreach ($jogos as $jogo) {
+          echo"<div class='col-md-4'>
+            <div class='card mt-3'>
+              <div class='product-1 align-items-center p-2 text-center'>
+                <img src='{$jogo['url']}' alt='' class='rounded' width='160' height='250'>
+                <h5>{$jogo['name']}</h5>
+  
+                <!-- informações do card -->
+  
+                <div class='mt-3 info'>
+                  <span class='text1 d-block'>{$jogo['categoria']}</span>
                 </div>
+  
+                <div class='cost mt-3 text-drak'>
+                  <span>R$ {$jogo['price']}</span>
+                  <div class='star mt-3 align-items-center'>
+                    <i class='fa fa-star checked' aria-hidden='true'></i>
+                    <i class='fa fa-star checked' aria-hidden='true'></i>
+                    <i class='fa fa-star checked' aria-hidden='true'></i>
+                    <i class='fa fa-star checked' aria-hidden='true'></i>
+                    <i class='fa fa-star' aria-hidden='true'></i>
+                  </div>
+                </div>
+                <!-- fim das informações do card -->
               </div>
-              <!-- fim das informações do card -->
+  
+  
+              <!-- botoes para o card -->
+              <div class='p-3 shoe text-center text-white mt-3 cursos'>
+                            <a class='linkCompras' href='../html/produtoDetalheJogos.php?id={$jogo['id']}' target='_blank'>Comprar</a>
+                        </div>
             </div>
-
-
-            <!-- botoes para o card -->
-            <div class='p-3 shoe text-center text-white mt-3 cursos'>
-                          <a class='linkCompras' href='../html/produtoDetalheJogos.php?id={$jogo['id']}' target='_blank'>Comprar</a>
-                      </div>
-          </div>
-        </div>";
+          </div>";
+        
+  
       }?>
       <!-- fim do cartao 1 -->
 

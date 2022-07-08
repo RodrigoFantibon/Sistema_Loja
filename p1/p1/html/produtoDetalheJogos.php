@@ -1,3 +1,20 @@
+<?php
+  require_once '../conexao/conexao.php';
+  require_once '../conexao/carrinho.php';
+  $id = $_GET['id'];
+  $con = new Conexao();
+  $jogo = $con->conectar()->prepare("SELECT * FROM jogos WHERE id = $id; ");
+  $jogo->execute();
+  $jogo = $jogo->fetch();
+  session_start();
+  $carrinho = new carrinho();
+  if(isset($_POST['btn-carrinho'])){
+    $carrinho->addCarrinho($id);
+    echo '<script type="text/javascript">alert("Item adicionado com ao carrinho!")</script>';
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     
@@ -20,7 +37,7 @@
     <meta charset=utf-8>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <link rel="icon" href="../img/favicon.ico">
-    <title>Produto-Detalhe-Metroid</title>
+    <title>Produto Detalhe</title>
 </head>
     
     <body>
@@ -36,7 +53,7 @@
                     </form>
                     <div class='icones'>
                       <a href="../html/login.php"><img src="../img/midnaicon.png" id="logini" /></a>
-                      <a href="../html/carrinho.html"><img src="../img/bag.png" id="carrinho" /></a>
+                      <a href="../html/carrinho.php"><img src="../img/bag.png" id="carrinho" /></a>
                     </div>
                   </div>                
               </nav>            
@@ -46,7 +63,7 @@
               <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgb(0,63,92);
               background: linear-gradient(0deg, rgba(0,63,92,1) 0%, rgba(88,80,141,1) 100%);">
                   <div class="container-fluid text-xs-center">
-                    <a class="navbar-brand" id="menuzinho" href="../html/produtoBusca.html">Buscar jogos</a>
+                    <a class="navbar-brand" id="menuzinho" href="../html/busca.php">Buscar jogos</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
@@ -66,52 +83,43 @@
             <div>
     
                 <!-- CARD 1 -->
-                <div class="row">
-                    <div class="card mt-3">
-                        <div class="product-1 align-items-center p-2 text-center">
-                            <img src="../img/img1.png" alt="" class="rounded" width="200">
-                            <h5> Metroid Dread </h5>
-    
-                            <!-- informações do card -->
-    
-                            <div class="mt-3 info">
-                                <span class="text1 d-block"> SINOPSE: </span>
-                                <span class="text1 d-block"> 
-                                  Junte-se à caçadora de recompensas Samus Aran enquanto ela tenta escapar de um mundo alienígena mortal atormentado por uma ameaça mecânica.<br>
-                                  Ao investigar uma transmissão misteriosa no planeta ZDR, Samus enfrenta um inimigo misterioso que a aprisiona neste mundo perigoso. </br>
-                                  O planeta remoto foi invadido por cruéis formas de vida alienígenas e robôs assassinos chamados E.M.M.I.</br>
-                                  Cace ou seja caçado enquanto abre caminho através de um labirinto de inimigos na aventura de deslocamento lateral mais intensa de Samus.</span>
-                            </div>
-    
-                            <div class="cost mt-3 text-drak">
-                                <span>R$85.20</span>
-                                <div class="star mt-3 align-items-center">
-                                    <i class="fa fa-star checked" aria-hidden="true"></i>
-                                    <i class="fa fa-star checked" aria-hidden="true"></i>
-                                    <i class="fa fa-star checked" aria-hidden="true"></i>
-                                    <i class="fa fa-star checked" aria-hidden="true"></i>
-                                    <i class="fa fa-star checked" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <br>
+                <form method="POST" action="" class="form">
+                  <div class="row">
+                      <div class="card mt-3">
+                          <div class="product-1 align-items-center p-2 text-center">
+                              <img src="<?=$jogo["url"]?>" alt="" class="rounded" width="200">
+                              <h5> <?=$jogo["name"]?> </h5>
+                              <!--<button type="submit" id="btnMetroidDread"></button>-->
+                              <!-- informações do card -->
+      
+                              <div class="mt-3 info">
+                                  <span class="text1 d-block"> SINOPSE: </span>
+                                  <span class='text1 d-block'> <?=$jogo['sinopse']?> </span>
+      
+                              <div class="cost mt-3 text-drak">
+                                  <span>R$ <?=$jogo['price']?></span>
+                                  <div class="star mt-3 align-items-center">
+                                      <i class="fa fa-star checked" aria-hidden="true"></i>
+                                      <i class="fa fa-star checked" aria-hidden="true"></i>
+                                      <i class="fa fa-star checked" aria-hidden="true"></i>
+                                      <i class="fa fa-star checked" aria-hidden="true"></i>
+                                      <i class="fa fa-star checked" aria-hidden="true"></i>
+                                  </div>
+                              </div>
+                              <br>
 
-                            <div class="align-items-center">
+                              <div class="align-items-center">
 
-                                <button class="btn btn-success">Comprar</button>
-                                <a href="carrinho.html"></a> 
+                                  <button name="btn-carrinho" class="btn btn-success">Comprar</button>
+                                  <!--<a href="carrinho.php"></a> -->
 
-                            </div>
-                            <!-- fim das informações do card -->
-                        </div>
-    
-    
-                        <!-- botoes para o card -->
-                         <div class="p-3 shoe text-center text-white mt-3 cursos">
-                             <a class="linkCompras" href="www.google.com.br">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- fim do cartao 1 -->
+                              </div>
+                              <!-- fim das informações do card -->
+                          </div>
+                      </div>
+                  </div>
+                </form>
+                  <!-- fim do cartao 1 -->
         
     
     
@@ -126,16 +134,26 @@
                 <!-- Section: Social media -->
                 <section class="mb-4">
                     <!-- Facebook -->
-                    <img src="../img/facebook.png" width="45px" href="../img/facebook.png" role="button">
+        <a href="https://web.facebook.com/" target="_blank">
+          <img src="../img/facebook.png" width="45px" href="/img/facebook.png" role="button">
+        </a>
+        
 
-                    <!-- Twitter -->
-                    <img src="../img/Twitter.png" width="45px" href="../img/Twitter.png" role="button">
+        <!-- Twitter -->
+        <a href="https://twitter.com/home" target="_blank">
+          <img src="../img/Twitter.png" width="45px" href="/img/Twitter.png" role="button">
+        </a>
+       
 
-                    <!-- Google -->
-                    <img src="../img/google.png" width="45px" href="../img/google.png" role="button">
+        <!-- Google -->
+        <a href="https://mail.google.com/" target="_blank">
+          <img src="../img/google.png" width="45px" href="/img/google.png" role="button">
+        </a>
 
-                    <!-- Instagram -->
-                    <img src="../img/Instagram.png" width="45px" href="../img/Instagram.png" role="button">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/" target="_blank">
+          <img src="../img/Instagram.png" width="45px" href="/img/Instagram.png" role="button">
+        </a>
 
                 </section>
             </div>
@@ -153,3 +171,4 @@
 
  
 </html>
+

@@ -182,7 +182,7 @@ class cliente
         try {
             $this->email = $dados['email'];
             $this->senha = sha1($dados['senha']);
-            $cst = $this->con->conectar()->prepare("SELECT email, senha, nome FROM cadastro WHERE email = (:email) AND senha = (:senha);");
+            $cst = $this->con->conectar()->prepare("SELECT id, email, senha, nome FROM cadastro WHERE email = (:email) AND senha = (:senha);");
             $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
             $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
            
@@ -196,6 +196,7 @@ class cliente
             return "erro" . $erro->getMessage();
         }
     }
+
 
     // function enviarEmail($dado){
     //    $envEmail = $this->email = $dado['email'];
